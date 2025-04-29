@@ -1,0 +1,115 @@
+/* Custom styles for BookShelf application */
+
+/* Global styles */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    /* Add bottom padding to accommodate the footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Make main content take available space */
+.container {
+    flex: 1 0 auto;
+}
+
+/* Navbar styles */
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Card styles */
+.card {
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 4px;
+}
+
+/* Table styles */
+.table th {
+    background-color: #f0f2f5;
+}
+
+/* Dashboard styles */
+.dashboard-stats {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.stats-icon {
+    background-color: #e7f5ff;
+    color: #0d6efd;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+/* Form styles */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Footer styles */
+footer {
+    /* Make footer sticky at the bottom */
+    flex-shrink: 0;
+    width: 100%;
+}
+
+/* Book card styles */
+.book-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card .card-body {
+    flex: 1;
+}
+
+/* Profile page styles */
+.profile-icon {
+    font-size: 6rem;
+    color: #0d6efd;
+}
+
+/* Login/Register card styles */
+.auth-card {
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .card {
+        margin-bottom: 20px;
+    }
+}

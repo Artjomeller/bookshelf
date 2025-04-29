@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/bookshelf/index.php">
+            <i class="fas fa-book-open me-2"></i>BookShelf
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'index.php') ? 'active' : ''; ?>" href="/bookshelf/index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'books.php') ? 'active' : ''; ?>" href="/bookshelf/books.php">Books</a>
+                </li>
+                <?php if (is_logged_in()): ?>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'dashboard.php') ? 'active' : ''; ?>" href="/bookshelf/dashboard.php">Dashboard</a>
+                </li>
+                <?php if (is_admin()): ?>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'add_book.php') ? 'active' : ''; ?>" href="/bookshelf/add_book.php">Add Book</a>
+                </li>
+                <?php endif; ?>
+                <?php endif; ?>
+            </ul>
+            
+            <form class="d-flex me-2" action="/bookshelf/search.php" method="GET">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search books" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            
+            <ul class="navbar-nav">
+                <?php if (is_logged_in()): ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-1"></i><?php echo $_SESSION['username']; ?>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/bookshelf/profile.php">Profile</a></li>
+                        <li><a class="dropdown-item" href="/bookshelf/my_books.php">My Loans</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/bookshelf/logout.php">Logout</a></li>
+                    </ul>
+                </li>
+                <?php else: ?>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'login.php') ? 'active' : ''; ?>" href="/bookshelf/login.php">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'register.php') ? 'active' : ''; ?>" href="/bookshelf/register.php">Register</a>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</nav>
