@@ -3,17 +3,17 @@ require_once 'config/database.php';
 require_once 'includes/session.php';
 require_once 'models/Book.php';
 
-// Require admin privileges
+// Nõua administraatori õigusi
 require_admin();
 
-// Check if form was submitted
+// Kontrolli, kas vorm on esitatud
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_id'])) {
     $book_id = $_POST['book_id'];
     
-    // Create book model instance
+    // Loo raamatu mudeli eksemplar
     $bookModel = new Book($pdo);
     
-    // Delete the book
+    // Kustuta raamat
     $result = $bookModel->delete($book_id);
     
     if ($result['success']) {
@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_id'])) {
         set_flash_message('danger', $result['message']);
     }
     
-    // Redirect to books page
+    // Suuna raamatute lehele
     header("Location: books.php");
     exit;
 } else {
-    // If not POST request, redirect to books page
-    set_flash_message('danger', 'Invalid request');
+    // Kui pole POST päring, suuna raamatute lehele
+    set_flash_message('danger', 'Vigane päring');
     header("Location: books.php");
     exit;
 }

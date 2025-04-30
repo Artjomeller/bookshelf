@@ -1,21 +1,21 @@
 <?php
-$pageTitle = 'Dashboard';
+$pageTitle = 'Töölaud';
 require_once 'config/database.php';
 require_once 'includes/header.php';
 require_once 'models/Book.php';
 require_once 'models/User.php';
 
-// Require login
+// Nõua sisselogimist
 require_login();
 
-// Create model instances
+// Loo mudeli eksemplarid
 $bookModel = new Book($pdo);
 $userModel = new User($pdo);
 
-// Get user data
+// Võta kasutaja andmed
 $user = $userModel->getById($_SESSION['user_id']);
 
-// Get user's borrowed books
+// Võta kasutaja laenutatud raamatud
 $loans = $bookModel->getUserLoans($_SESSION['user_id']);
 ?>
 
@@ -24,7 +24,7 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
         <div class="col-md-3">
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="card-title mb-0">User Profile</h5>
+                    <h5 class="card-title mb-0">Kasutaja profiil</h5>
                 </div>
                 <div class="card-body text-center">
                     <div class="mb-3">
@@ -32,44 +32,44 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
                     </div>
                     <h4><?php echo htmlspecialchars($user['username']); ?></h4>
                     <p class="text-muted">
-                        <?php echo !empty($user['full_name']) ? htmlspecialchars($user['full_name']) : 'No name set'; ?>
+                        <?php echo !empty($user['full_name']) ? htmlspecialchars($user['full_name']) : 'Nimi puudub'; ?>
                     </p>
                     <p class="text-muted">
                         <i class="fas fa-envelope me-2"></i><?php echo htmlspecialchars($user['email']); ?>
                     </p>
                     <p class="text-muted">
-                        <i class="fas fa-calendar me-2"></i>Member since: <?php echo date('F j, Y', strtotime($user['created_at'])); ?>
+                        <i class="fas fa-calendar me-2"></i>Liitunud: <?php echo date('d.m.Y', strtotime($user['created_at'])); ?>
                     </p>
-                    <a href="profile.php" class="btn btn-outline-primary">Edit Profile</a>
+                    <a href="profile.php" class="btn btn-outline-primary">Muuda profiili</a>
                 </div>
             </div>
             
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="card-title mb-0">Quick Links</h5>
+                    <h5 class="card-title mb-0">Kiirlingid</h5>
                 </div>
                 <div class="card-body p-0">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <a href="books.php" class="text-decoration-none">
-                                <i class="fas fa-book me-2"></i>Browse Books
+                                <i class="fas fa-book me-2"></i>Sirvi raamatuid
                             </a>
                         </li>
                         <li class="list-group-item">
                             <a href="my_books.php" class="text-decoration-none">
-                                <i class="fas fa-book-reader me-2"></i>My Borrowed Books
+                                <i class="fas fa-book-reader me-2"></i>Minu laenutused
                             </a>
                         </li>
                         <?php if (is_admin()): ?>
                         <li class="list-group-item">
                             <a href="add_book.php" class="text-decoration-none">
-                                <i class="fas fa-plus me-2"></i>Add New Book
+                                <i class="fas fa-plus me-2"></i>Lisa uus raamat
                             </a>
                         </li>
                         <?php endif; ?>
                         <li class="list-group-item">
                             <a href="logout.php" class="text-decoration-none text-danger">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                <i class="fas fa-sign-out-alt me-2"></i>Logi välja
                             </a>
                         </li>
                     </ul>
@@ -80,48 +80,48 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
         <div class="col-md-9">
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="card-title mb-0">Dashboard</h5>
+                    <h5 class="card-title mb-0">Töölaud</h5>
                 </div>
                 <div class="card-body">
-                    <h3>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
-                    <p>This is your personal dashboard where you can manage your book loans and account settings.</p>
+                    <h3>Tere, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
+                    <p>See on teie isiklik töölaud, kus saate hallata oma raamatute laenutusi ja konto seadeid.</p>
                 </div>
             </div>
             
             <div class="card shadow mb-4">
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Your Borrowed Books</h5>
-                    <a href="my_books.php" class="btn btn-sm btn-light">View All</a>
+                    <h5 class="card-title mb-0">Teie laenutatud raamatud</h5>
+                    <a href="my_books.php" class="btn btn-sm btn-light">Vaata kõiki</a>
                 </div>
                 <div class="card-body">
                     <?php if (empty($loans)): ?>
                     <div class="alert alert-info">
-                        You have not borrowed any books yet. <a href="books.php">Browse books</a> to find something to read!
+                        Te pole veel ühtegi raamatut laenutanud. <a href="books.php">Sirvige raamatuid</a>, et leida midagi lugemiseks!
                     </div>
                     <?php else: ?>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Borrowed Date</th>
-                                    <th>Due Date</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>Pealkiri</th>
+                                    <th>Autor</th>
+                                    <th>Laenutuse kuupäev</th>
+                                    <th>Tagastuse tähtaeg</th>
+                                    <th>Staatus</th>
+                                    <th>Tegevused</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php 
-                                // Display only the 5 most recent loans
+                                // Kuva ainult 5 kõige hilisemat laenutust
                                 $recent_loans = array_slice($loans, 0, 5);
                                 foreach ($recent_loans as $loan): 
                                 ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($loan['title']); ?></td>
                                     <td><?php echo htmlspecialchars($loan['author']); ?></td>
-                                    <td><?php echo date('M j, Y', strtotime($loan['borrowed_date'])); ?></td>
-                                    <td><?php echo date('M j, Y', strtotime($loan['due_date'])); ?></td>
+                                    <td><?php echo date('d.m.Y', strtotime($loan['borrowed_date'])); ?></td>
+                                    <td><?php echo date('d.m.Y', strtotime($loan['due_date'])); ?></td>
                                     <td>
                                         <?php 
                                         $status_class = 'bg-primary';
@@ -134,21 +134,25 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
                                         <span class="badge <?php echo $status_class; ?>">
                                             <?php 
                                             if ($loan['status'] === 'borrowed' && strtotime($loan['due_date']) < time()) {
-                                                echo 'Overdue';
-                                            } else {
-                                                echo ucfirst($loan['status']); 
+                                                echo 'Tähtaeg ületatud';
+                                            } elseif ($loan['status'] === 'borrowed') {
+                                                echo 'Laenutatud';
+                                            } elseif ($loan['status'] === 'returned') {
+                                                echo 'Tagastatud';
+                                            } elseif ($loan['status'] === 'overdue') {
+                                                echo 'Tähtaeg ületatud';
                                             }
                                             ?>
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="view_book.php?id=<?php echo $loan['book_id']; ?>" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a href="view_book.php?id=<?php echo $loan['book_id']; ?>" class="btn btn-sm btn-outline-primary">Vaata</a>
                                         
                                         <?php if ($loan['status'] === 'borrowed'): ?>
                                         <form action="view_book.php?id=<?php echo $loan['book_id']; ?>" method="POST" class="d-inline">
                                             <input type="hidden" name="action" value="return">
                                             <input type="hidden" name="loan_id" value="<?php echo $loan['id']; ?>">
-                                            <button type="submit" class="btn btn-sm btn-outline-success">Return</button>
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Tagasta</button>
                                         </form>
                                         <?php endif; ?>
                                     </td>

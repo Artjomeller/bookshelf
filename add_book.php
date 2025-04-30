@@ -1,13 +1,13 @@
 <?php
-$pageTitle = 'Add Book';
+$pageTitle = 'Lisa raamat';
 require_once 'config/database.php';
 require_once 'includes/header.php';
 require_once 'models/Book.php';
 
-// Require admin privileges
+// Nõua administraatori õigusi
 require_admin();
 
-// Process form submission
+// Töötleme vormi sisestust
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
     $author = trim($_POST['author'] ?? '');
@@ -15,31 +15,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $publication_year = trim($_POST['publication_year'] ?? '');
     $isbn = trim($_POST['isbn'] ?? '');
     
-    // Validate input
+    // Valideeri sisend
     $errors = [];
     
     if (empty($title)) {
-        $errors[] = "Title is required";
+        $errors[] = "Pealkiri on kohustuslik";
     }
     
     if (empty($author)) {
-        $errors[] = "Author is required";
+        $errors[] = "Autor on kohustuslik";
     }
     
     if (!empty($publication_year) && (!is_numeric($publication_year) || $publication_year < 0 || $publication_year > date('Y'))) {
-        $errors[] = "Publication year must be a valid year not in the future";
+        $errors[] = "Avaldamise aasta peab olema kehtiv aasta ning mitte tulevikus";
     }
     
-    // If no validation errors, add the book
+    // Kui valideerimisvigu pole, lisa raamat
     if (empty($errors)) {
         $bookModel = new Book($pdo);
         $result = $bookModel->add($title, $author, $description, $publication_year, $isbn, $_SESSION['user_id']);
         
         if ($result['success']) {
-            // Set success message
-            set_flash_message('success', 'Book added successfully');
+            // Sea õnnestumise teade
+            set_flash_message('success', 'Raamat lisatud edukalt');
             
-            // Redirect to books page
+            // Suuna raamatute lehele
             header("Location: books.php");
             exit;
         } else {
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-8">
             <div class="card shadow mt-4 mb-4">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0">Add New Book</h3>
+                    <h3 class="card-title mb-0">Lisa uus raamat</h3>
                 </div>
                 <div class="card-body">
                     <?php if (isset($errors) && !empty($errors)): ?>
@@ -69,25 +69,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <form action="add_book.php" method="POST">
                         <div class="mb-3">
-                            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                            <label for="title" class="form-label">Pealkiri <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="title" name="title" 
                                    value="<?php echo htmlspecialchars($title ?? ''); ?>" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="author" class="form-label">Author <span class="text-danger">*</span></label>
+                            <label for="author" class="form-label">Autor <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="author" name="author" 
                                    value="<?php echo htmlspecialchars($author ?? ''); ?>" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
+                            <label for="description" class="form-label">Kirjeldus</label>
                             <textarea class="form-control" id="description" name="description" rows="4"><?php echo htmlspecialchars($description ?? ''); ?></textarea>
                         </div>
                         
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="publication_year" class="form-label">Publication Year</label>
+                                <label for="publication_year" class="form-label">Avaldamise aasta</label>
                                 <input type="number" class="form-control" id="publication_year" name="publication_year" 
                                        value="<?php echo htmlspecialchars($publication_year ?? ''); ?>" min="1" max="<?php echo date('Y'); ?>">
                             </div>
@@ -100,8 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         
                         <div class="d-flex justify-content-between">
-                            <a href="books.php" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Add Book</button>
+                            <a href="books.php" class="btn btn-secondary">Tühista</a>
+                            <button type="submit" class="btn btn-primary">Lisa raamat</button>
                         </div>
                     </form>
                 </div>

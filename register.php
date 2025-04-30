@@ -1,16 +1,16 @@
 <?php
-$pageTitle = 'Register';
+$pageTitle = 'Registreerimine';
 require_once 'config/database.php';
 require_once 'includes/header.php';
 require_once 'models/User.php';
 
-// Redirect if already logged in
+// Suuna edasi, kui juba sisse logitud
 if (is_logged_in()) {
     header("Location: dashboard.php");
     exit;
 }
 
-// Process registration form
+// Töötleme registreerimisvormi
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -18,52 +18,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = $_POST['confirm_password'] ?? '';
     $full_name = trim($_POST['full_name'] ?? '');
     
-    // Validate input
+    // Valideeri sisend
     $errors = [];
     
     if (empty($username)) {
-        $errors[] = "Username is required";
+        $errors[] = "Kasutajanimi on kohustuslik";
     } elseif (strlen($username) < 3 || strlen($username) > 50) {
-        $errors[] = "Username must be between 3 and 50 characters long";
+        $errors[] = "Kasutajanimi peab olema 3 kuni 50 tähemärki pikk";
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
-        $errors[] = "Username can only contain letters, numbers, and underscores";
+        $errors[] = "Kasutajanimi võib sisaldada ainult tähti, numbreid ja alakriipsu";
     }
     
     if (empty($email)) {
-        $errors[] = "Email is required";
+        $errors[] = "E-post on kohustuslik";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email address";
+        $errors[] = "Palun sisestage kehtiv e-posti aadress";
     }
     
     if (empty($password)) {
-        $errors[] = "Password is required";
+        $errors[] = "Parool on kohustuslik";
     } elseif (strlen($password) < 8) {
-        $errors[] = "Password must be at least 8 characters long";
+        $errors[] = "Parool peab olema vähemalt 8 tähemärki pikk";
     } elseif (!preg_match('/[A-Z]/', $password)) {
-        $errors[] = "Password must contain at least one uppercase letter";
+        $errors[] = "Parool peab sisaldama vähemalt ühte suurtähte";
     } elseif (!preg_match('/[a-z]/', $password)) {
-        $errors[] = "Password must contain at least one lowercase letter";
+        $errors[] = "Parool peab sisaldama vähemalt ühte väiketähte";
     } elseif (!preg_match('/[0-9]/', $password)) {
-        $errors[] = "Password must contain at least one number";
+        $errors[] = "Parool peab sisaldama vähemalt ühte numbrit";
     }
     
     if ($password !== $confirm_password) {
-        $errors[] = "Passwords do not match";
+        $errors[] = "Paroolid ei ühti";
     }
     
-    // If no validation errors, attempt registration
+    // Kui valideerimisvigu pole, proovime registreerida
     if (empty($errors)) {
         $userModel = new User($pdo);
         $result = $userModel->register($username, $email, $password, $full_name);
         
         if ($result['success']) {
-            // Automatic login after registration
+            // Automaatne sisselogimine pärast registreerumist
             $login_result = $userModel->login($username, $password);
             
-            // Set success message
-            set_flash_message('success', 'Registration successful! Welcome to BookShelf, ' . htmlspecialchars($username));
+            // Seame õnnestumise teate
+            set_flash_message('success', 'Registreerimine õnnestus! Tere tulemast BookShelf-i, ' . htmlspecialchars($username));
             
-            // Redirect to dashboard
+            // Suuname töölauaale
             header("Location: dashboard.php");
             exit;
         } else {
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-6">
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0">Create an Account</h3>
+                    <h3 class="card-title mb-0">Loo konto</h3>
                 </div>
                 <div class="card-body">
                     <?php if (isset($errors) && !empty($errors)): ?>
@@ -93,43 +93,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <form action="register.php" method="POST">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="username" class="form-label">Kasutajanimi</label>
                             <input type="text" class="form-control" id="username" name="username" 
                                    value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
-                            <small class="form-text text-muted">Only letters, numbers, and underscores allowed.</small>
+                            <small class="form-text text-muted">Lubatud on ainult tähed, numbrid ja alakriipsud.</small>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">E-post</label>
                             <input type="email" class="form-control" id="email" name="email" 
                                    value="<?php echo htmlspecialchars($email ?? ''); ?>" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="full_name" class="form-label">Full Name (Optional)</label>
+                            <label for="full_name" class="form-label">Täisnimi (valikuline)</label>
                             <input type="text" class="form-control" id="full_name" name="full_name" 
                                    value="<?php echo htmlspecialchars($full_name ?? ''); ?>">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">Parool</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                             <div id="password-strength-feedback" class="form-text"></div>
-                            <small class="form-text text-muted">Must be at least 8 characters long, include uppercase, lowercase, and numbers.</small>
+                            <small class="form-text text-muted">Parool peab olema vähemalt 8 tähemärki pikk, sisaldama suurtähti, väiketähti ja numbreid.</small>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <label for="confirm_password" class="form-label">Kinnita parool</label>
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                         </div>
                         
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <button type="submit" class="btn btn-primary">Registreeru</button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <p class="mb-0">Already have an account? <a href="login.php">Login here</a></p>
+                    <p class="mb-0">Juba on konto? <a href="login.php">Logi sisse siin</a></p>
                 </div>
             </div>
         </div>

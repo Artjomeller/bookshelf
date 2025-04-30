@@ -1,26 +1,26 @@
 <?php
-$pageTitle = 'My Borrowed Books';
+$pageTitle = 'Minu laenutatud raamatud';
 require_once 'config/database.php';
 require_once 'includes/header.php';
 require_once 'models/Book.php';
 
-// Require login
+// Nõua sisselogimist
 require_login();
 
-// Create book model instance
+// Loo raamatu mudeli eksemplar
 $bookModel = new Book($pdo);
 
-// Get user's borrowed books
+// Võta kasutaja laenutatud raamatud
 $loans = $bookModel->getUserLoans($_SESSION['user_id']);
 ?>
 
 <div class="container">
-    <h1 class="mb-4">My Borrowed Books</h1>
+    <h1 class="mb-4">Minu laenutatud raamatud</h1>
     
     <?php if (empty($loans)): ?>
     <div class="alert alert-info">
-        <p>You have not borrowed any books yet.</p>
-        <a href="books.php" class="btn btn-primary mt-2">Browse Books</a>
+        <p>Te pole veel ühtegi raamatut laenutanud.</p>
+        <a href="books.php" class="btn btn-primary mt-2">Sirvi raamatuid</a>
     </div>
     <?php else: ?>
     
@@ -30,13 +30,13 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Author</th>
+                            <th>Pealkiri</th>
+                            <th>Autor</th>
                             <th>ISBN</th>
-                            <th>Borrowed Date</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Laenutuse kuupäev</th>
+                            <th>Tagastuse tähtaeg</th>
+                            <th>Staatus</th>
+                            <th>Tegevused</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,20 +45,19 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
                             <td><?php echo htmlspecialchars($loan['title']); ?></td>
                             <td><?php echo htmlspecialchars($loan['author']); ?></td>
                             <td><?php echo htmlspecialchars($loan['isbn'] ?? 'N/A'); ?></td>
-                            <td><?php echo date('M j, Y', strtotime($loan['borrowed_date'])); ?></td>
-                            <td><?php echo date('M j, Y', strtotime($loan['due_date'])); ?></td>
+                            <td><?php echo date('d.m.Y', strtotime($loan['borrowed_date'])); ?></td>
+                            <td><?php echo date('d.m.Y', strtotime($loan['due_date'])); ?></td>
                             <td>
                                 <?php 
                                 $status_class = 'bg-primary';
-                                $status_text = ucfirst($loan['status']);
+                                $status_text = 'Laenutatud';
                                 
                                 if ($loan['status'] === 'returned') {
                                     $status_class = 'bg-success';
+                                    $status_text = 'Tagastatud';
                                 } elseif ($loan['status'] === 'overdue' || strtotime($loan['due_date']) < time()) {
                                     $status_class = 'bg-danger';
-                                    if ($loan['status'] !== 'overdue') {
-                                        $status_text = 'Overdue';
-                                    }
+                                    $status_text = 'Tähtaeg ületatud';
                                 }
                                 ?>
                                 <span class="badge <?php echo $status_class; ?>">
@@ -66,13 +65,13 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
                                 </span>
                             </td>
                             <td>
-                                <a href="view_book.php?id=<?php echo $loan['book_id']; ?>" class="btn btn-sm btn-outline-primary">View</a>
+                                <a href="view_book.php?id=<?php echo $loan['book_id']; ?>" class="btn btn-sm btn-outline-primary">Vaata</a>
                                 
                                 <?php if ($loan['status'] === 'borrowed'): ?>
                                 <form action="view_book.php?id=<?php echo $loan['book_id']; ?>" method="POST" class="d-inline">
                                     <input type="hidden" name="action" value="return">
                                     <input type="hidden" name="loan_id" value="<?php echo $loan['id']; ?>">
-                                    <button type="submit" class="btn btn-sm btn-outline-success">Return</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-success">Tagasta</button>
                                 </form>
                                 <?php endif; ?>
                             </td>
@@ -88,7 +87,7 @@ $loans = $bookModel->getUserLoans($_SESSION['user_id']);
     
     <div class="mt-4 mb-4">
         <a href="dashboard.php" class="btn btn-secondary">
-            <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+            <i class="fas fa-arrow-left me-1"></i> Tagasi töölauaale
         </a>
     </div>
 </div>

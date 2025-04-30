@@ -1,45 +1,45 @@
 <?php
-$pageTitle = 'Login';
+$pageTitle = 'Sisselogimine';
 require_once 'config/database.php';
 require_once 'includes/header.php';
 require_once 'models/User.php';
 
-// Redirect if already logged in
+// Suuna edasi, kui juba sisselogitud
 if (is_logged_in()) {
     header("Location: dashboard.php");
     exit;
 }
 
-// Process login form
+// Töötleme sisselogimisvormi
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     
-    // Validate input
+    // Valideeri sisend
     $errors = [];
     
     if (empty($username)) {
-        $errors[] = "Username or email is required";
+        $errors[] = "Kasutajanimi või e-post on kohustuslik";
     }
     
     if (empty($password)) {
-        $errors[] = "Password is required";
+        $errors[] = "Parool on kohustuslik";
     }
     
-    // If no validation errors, attempt login
+    // Kui valideerimisvigu pole, proovi sisse logida
     if (empty($errors)) {
         $userModel = new User($pdo);
         $result = $userModel->login($username, $password);
         
         if ($result['success']) {
-            // Check if there's a redirect URL in session
+            // Kontrolli, kas sessioonis on salvestatud suunamise URL
             $redirect_to = $_SESSION['redirect_to'] ?? 'dashboard.php';
             unset($_SESSION['redirect_to']);
             
-            // Set success message
-            set_flash_message('success', 'Login successful! Welcome back, ' . htmlspecialchars($_SESSION['username']));
+            // Sea õnnestumise teade
+            set_flash_message('success', 'Sisselogimine õnnestus! Tere tulemast tagasi, ' . htmlspecialchars($_SESSION['username']));
             
-            // Redirect to intended page
+            // Suuna kasutaja soovitud lehele
             header("Location: $redirect_to");
             exit;
         } else {
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-md-6">
             <div class="card shadow mt-5">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="card-title mb-0">Login</h3>
+                    <h3 class="card-title mb-0">Logi sisse</h3>
                 </div>
                 <div class="card-body">
                     <?php if (isset($errors) && !empty($errors)): ?>
@@ -69,23 +69,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     <form action="login.php" method="POST">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username or Email</label>
+                            <label for="username" class="form-label">Kasutajanimi või e-post</label>
                             <input type="text" class="form-control" id="username" name="username" 
                                    value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">Parool</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">Logi sisse</button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <p class="mb-0">Don't have an account? <a href="register.php">Register here</a></p>
+                    <p class="mb-0">Pole veel kontot? <a href="register.php">Registreeru siin</a></p>
                 </div>
             </div>
         </div>

@@ -1,12 +1,12 @@
 <?php
 require_once 'includes/session.php';
 
-// Log out the user
+// Logi kasutaja välja
 logout();
 
-// Set flash message
-set_flash_message('success', 'You have been successfully logged out.');
+// Seadista teade
+set_flash_message('success', 'Olete edukalt välja logitud.');
 
-// Redirect to home page
+// Suuna avalehele
 header("Location: index.php");
 exit;

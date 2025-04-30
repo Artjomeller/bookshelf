@@ -2,7 +2,7 @@
 require_once 'includes/session.php';
 ?>
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="et" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +25,6 @@ require_once 'includes/session.php';
         ?>
         <div class="alert alert-<?php echo $flash['type']; ?> alert-dismissible fade show" role="alert">
             <?php echo $flash['message']; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Sulge"></button>
         </div>
         <?php endif; ?>
