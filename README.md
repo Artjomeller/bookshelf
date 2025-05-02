@@ -125,7 +125,3 @@ This project is educational software and is available under the MIT License.
 ## 👨‍💻 Author
 
 - **Artjom Eller** - [GitHub Profile](https://github.com/Artjomeller)
-
----
-
-This project was created as a learning exercise for web development using PHP and MySQL.
