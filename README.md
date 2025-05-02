@@ -6,7 +6,9 @@
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-blueviolet.svg)](https://getbootstrap.com)
 
 A web-based library management system that allows users to browse books, borrow them, and track their reading journey. Built with PHP, MySQL, and Bootstrap.
-![BookShelf rakenduse kuvatõmmis](docs/images/1.png)
+![BookShelf rakenduse kuvatõmmis](docs/images/admin.png)
+![BookShelf rakenduse kuvatõmmis](docs/images/kasutaja.png)
+
 ## 📚 Features
 
 - **User Authentication System**
