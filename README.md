@@ -35,6 +35,7 @@ A web-based library management system that allows users to browse books, borrow 
   - Add new books to the collection
   - Edit existing book information
   - Delete books from the system
+  - Delete users from the system
 
 ## 🚀 Installation
 
