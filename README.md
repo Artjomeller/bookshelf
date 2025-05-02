@@ -61,20 +61,10 @@ A web-based library management system that allows users to browse books, borrow 
    - Create a new database named `bookshelf_db`
    - Import the `bookshelf_db.txt` file from the project
 
-3. **Configure database connection**
-   - Open `config/database.php`
-   - Update the database credentials if necessary:
-     ```php
-     $host = 'localhost';
-     $db_name = 'bookshelf_db';
-     $username = 'root'; // Change if needed
-     $password = ''; // Change if needed
-     ```
-
-4. **Start your web server**
+3. **Start your web server**
    - If using XAMPP, start Apache and MySQL
 
-5. **Access the application**
+4. **Access the application**
    - Open your web browser and navigate to:
    - `http://localhost/bookshelf/`
 
