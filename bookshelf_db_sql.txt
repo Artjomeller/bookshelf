@@ -44,19 +44,30 @@ CREATE TABLE book_loans (
 
 -- Insert admin user (password: Parool11)
 INSERT INTO users (username, email, password, full_name) VALUES
-('admin', 'admin@exmp.com', '$2y$10$Xv1ELJ48VpYGD9DjoAzO1ODMxaEGhL8uQEYK73HdHcGd/NvQJsEJ2', 'Administraator');
+('admin', 'admin@bshelf.com', '$2y$10$Xv1ELJ48VpYGD9DjoAzO1ODMxaEGhL8uQEYK73HdHcGd/NvQJsEJ2', 'Administraator');
 
 -- Insert regular user (password: Parool12)
 INSERT INTO users (username, email, password, full_name) VALUES
-('Kasutaja', 'kasutaja@exmp.com', '$2y$10$Xv75Bw7FwJaOqcSvCb13X.rCwH9xrPWUomwiNPkCYWIKaL92EjEiC', 'Tavaline Kasutaja');
+('Kasutaja', 'kasutaja@bshelf.com', '$2y$10$Xv75Bw7FwJaOqcSvCb13X.rCwH9xrPWUomwiNPkCYWIKaL92EjEiC', 'Tavaline Kasutaja');
 
 -- Insert sample books in Estonian
-INSERT INTO books (title, author, description, publication_year, isbn, available, added_by) VALUES
+INSERT INTO books (title, author, description, publication_year, isbn, available, added_by) 
+VALUES 
 ('Tõde ja õigus I', 'A. H. Tammsaare', 'Eesti kirjanduse klassikaline romaan Andrese ja Pearu vahelisest keerulisest suhtest', 1926, '9789985317617', TRUE, 1),
 ('Rehepapp', 'Andrus Kivirähk', 'Humoorikas romaan eesti rahvapärimusest ja rehepapist, kes varastab mõisa varandust', 2000, '9789985317624', TRUE, 1),
 ('Kevade', 'Oskar Luts', 'Romaan Tootsi, Kiire, Arno ja teiste koolipõlvest', 1912, '9789985317631', TRUE, 1),
 ('Mees, kes teadis ussisõnu', 'Andrus Kivirähk', 'Romaan viimasest metsaelanikust ja muistsest ussisõnade keelest', 2007, '9789985317648', FALSE, 1),
-('Kalevipoeg', 'Friedrich Reinhold Kreutzwald', 'Eesti rahvuseepos Kalevipojast', 1857, '9789985317655', TRUE, 1);
+('Kalevipoeg', 'Friedrich Reinhold Kreutzwald', 'Eesti rahvuseepos Kalevipojast', 1857, '9789985317655', TRUE, 1),
+('Viimne reliikvia', 'Jaan Kross', 'Ajalooline romaan, mis põhineb 16. sajandi Liivimaa sündmustel', 1970, '9789985317662', TRUE, 1),
+('Piiririik', 'Emil Tode', 'Poeetiline romaan identiteediotsingust ja kultuuride kokkupõrkest', 1993, '9789985317679', TRUE, 1),
+('Minu Eesti', 'Ene Mihkelson', 'Valusalt aus romaan Eesti lähiajaloost ja perekonnasaladustest', 2009, '9789985317686', TRUE, 1),
+('Hingede öö', 'Karl Ristikivi', 'Filosoofiline romaan inimese teekonnast läbi ajastute', 1953, '9789985317693', TRUE, 1),
+('Libahunt', 'August Kitzberg', 'Eesti klassikaline näidend libahuntidest ja eelarvamuste ohvrist', 1912, '9789985317709', TRUE, 1),
+('Südasuvi', 'Jaan Kross', 'Ajalooline romaan Kristjan Jaak Petersoni elust', 1985, '9789985317716', FALSE, 1),
+('Apteeker Melchior ja Oleviste mõistatus', 'Indrek Hargla', 'Keskaegne krimilugu Tallinna apteekrihärrast', 2010, '9789985317723', TRUE, 1),
+('Meister ja Margarita', 'Mihhail Bulgakov', 'Fantastiline romaan saatana külaskäigust Moskvasse', 1967, '9789985317730', TRUE, 1),
+('Kolm musketäri', 'Alexandre Dumas', 'Seiklusromaan 17. sajandi Prantsusmaa musketäridest', 1844, '9789985317747', TRUE, 1),
+('To Kill a Mockingbird', 'Harper Lee', 'Romaan rassilisest ebaõiglusest Ameerika Ühendriikide lõunaosariikides', 1960, '9789985317754', TRUE, 1);
 
 -- Insert sample loan (Kasutaja has borrowed one book)
 INSERT INTO book_loans (book_id, user_id, due_date, status) VALUES
