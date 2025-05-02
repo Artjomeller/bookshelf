@@ -7,11 +7,11 @@
 
 A web-based library management system that allows users to browse books, borrow them, and track their reading journey. Built with PHP, MySQL, and Bootstrap.
 ### Admin Panel
-![Admin Dashboard](docs/images/admin1.png)
+![Admin Dashboard](docs/images/admin.png)
 *Screenshot of the admin dashboard showing book management and user administration features*
 
 ### User Interface
-![User Dashboard](docs/images/kasutaja1.png)
+![User Dashboard](docs/images/kasutaja.png)
 *Screenshot of the user dashboard showing borrowed books and profile management*
 
 ## 📚 Features
