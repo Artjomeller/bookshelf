@@ -68,6 +68,12 @@ VALUES
 ('Meister ja Margarita', 'Mihhail Bulgakov', 'Fantastiline romaan saatana külaskäigust Moskvasse', 1967, '9789985317730', TRUE, 1),
 ('Kolm musketäri', 'Alexandre Dumas', 'Seiklusromaan 17. sajandi Prantsusmaa musketäridest', 1844, '9789985317747', TRUE, 1),
 ('To Kill a Mockingbird', 'Harper Lee', 'Romaan rassilisest ebaõiglusest Ameerika Ühendriikide lõunaosariikides', 1960, '9789985317754', TRUE, 1);
+('Seitsmes rahukevad', 'Viivi Luik', 'Romaan, mis kirjeldab lapse silmade läbi sõjajärgset elu Eesti külas', 1985, '9789985317761', TRUE, 1),
+('Väike Illimar', 'Friedebert Tuglas', 'Autobiograafiline jutustus lapsepõlvest 20. sajandi alguse Eestis', 1937, '9789985317778', TRUE, 1),
+('Nimed marmortahvlil', 'Albert Kivikas', 'Romaan Eesti Vabadussõjast ja noortest kooliõpilastest rindel', 1936, '9789985317785', FALSE, 1),
+('Surma ratsanikud', 'Karl August Hindrey', 'Ajalooline romaan muinaseestlaste võitlustest ristisõdijatega', 1934, '9789985317792', TRUE, 1),
+('Minu esimesed triibulised', 'Jaan Pehk', 'Humoorikas lasteraamat tiigrile sarnanevatest kassidest', 2015, '9789985317808', TRUE, 1),
+('Maailma otsas', 'Urmas Vadi', 'Romaan tänapäeva Eesti elust ja inimsuhetest', 2012, '9789985317815', TRUE, 1);
 
 -- Insert sample loan (Kasutaja has borrowed one book)
 INSERT INTO book_loans (book_id, user_id, due_date, status) VALUES
