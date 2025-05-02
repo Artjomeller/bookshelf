@@ -18,7 +18,6 @@ A web-based library management system that allows users to browse books, borrow 
 
 - **Book Management**
   - Browse available books
-  - Search by title, author, or description
   - View detailed information about books
 
 - **Borrowing System**
