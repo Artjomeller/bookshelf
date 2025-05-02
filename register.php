@@ -4,6 +4,11 @@ require_once 'config/database.php';
 require_once 'includes/header.php';
 require_once 'models/User.php';
 
+// Vormi algväärtuste määramine
+$username = '';
+$email = '';
+$full_name = '';
+
 // Suuna edasi, kui juba sisse logitud
 if (is_logged_in()) {
     header("Location: dashboard.php");
@@ -95,20 +100,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="mb-3">
                             <label for="username" class="form-label">Kasutajanimi</label>
                             <input type="text" class="form-control" id="username" name="username" 
-                                   value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
+                                   value="<?php echo htmlspecialchars($username); ?>" required>
                             <small class="form-text text-muted">Lubatud on ainult tähed, numbrid ja alakriipsud.</small>
                         </div>
                         
                         <div class="mb-3">
                             <label for="email" class="form-label">E-post</label>
                             <input type="email" class="form-control" id="email" name="email" 
-                                   value="<?php echo htmlspecialchars($email ?? ''); ?>" required>
+                                   value="<?php echo htmlspecialchars($email); ?>" required>
                         </div>
                         
                         <div class="mb-3">
                             <label for="full_name" class="form-label">Täisnimi (valikuline)</label>
                             <input type="text" class="form-control" id="full_name" name="full_name" 
-                                   value="<?php echo htmlspecialchars($full_name ?? ''); ?>">
+                                   value="<?php echo htmlspecialchars($full_name); ?>">
                         </div>
                         
                         <div class="mb-3">

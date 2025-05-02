@@ -1,23 +1,9 @@
 /* Custom styles for BookShelf application */
 
 /* Global styles */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
-    /* Add bottom padding to accommodate the footer */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* Make main content take available space */
-.container {
-    flex: 1 0 auto;
 }
 
 /* Navbar styles */
@@ -79,9 +65,7 @@ body {
 
 /* Footer styles */
 footer {
-    /* Make footer sticky at the bottom */
-    flex-shrink: 0;
-    width: 100%;
+    margin-top: 50px;
 }
 
 /* Book card styles */

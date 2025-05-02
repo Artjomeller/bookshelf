@@ -237,4 +237,71 @@ class User {
         
         return $stmt->fetch() ? true : false;
     }
+    
+    /**
+     * Tagastab kõik kasutajad
+     *
+     * @return array Kasutajate massiiv
+     */
+    public function getAllUsers() {
+        try {
+            $stmt = $this->pdo->prepare("SELECT id, username, email, full_name, 
+                                        (id = 1) as is_admin, created_at FROM users ORDER BY created_at DESC");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Kustutab kasutaja ja kõik seotud andmed
+     *
+     * @param int $user_id Kasutaja ID
+     * @return array Töötlemise tulemus
+     */
+    public function deleteUser($user_id) {
+        try {
+            $this->pdo->beginTransaction();
+            
+            // Esmalt kontrolli, kas kasutaja eksisteerib
+            $stmt = $this->pdo->prepare("SELECT id FROM users WHERE id = ?");
+            $stmt->execute([$user_id]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$user) {
+                return [
+                    'success' => false,
+                    'message' => 'Kasutajat ei leitud'
+                ];
+            }
+            
+            // Kontrolli, kas see on admin kasutaja (id = 1)
+            if ($user_id == 1) {
+                return [
+                    'success' => false,
+                    'message' => 'Peamist administraatorit ei saa kustutada'
+                ];
+            }
+            
+            // Kustuta kasutaja
+            $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = ?");
+            $stmt->execute([$user_id]);
+            
+            $this->pdo->commit();
+            
+            return [
+                'success' => true,
+                'message' => 'Kasutaja edukalt kustutatud'
+            ];
+        } catch (PDOException $e) {
+            $this->pdo->rollBack();
+            error_log("Database error: " . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'Viga kasutaja kustutamisel: ' . $e->getMessage()
+            ];
+        }
+    }
 }

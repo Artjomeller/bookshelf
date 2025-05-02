@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'add_book.php') ? 'active' : ''; ?>" href="/bookshelf/add_book.php">Lisa raamat</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'users.php') ? 'active' : ''; ?>" href="/bookshelf/users.php">Kasutajad</a>
+                </li>
                 <?php endif; ?>
                 <?php endif; ?>
             </ul>
