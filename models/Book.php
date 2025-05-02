@@ -159,14 +159,18 @@ class Book {
         $query = "SELECT b.*, u.username as added_by_username 
                  FROM books b 
                  LEFT JOIN users u ON b.added_by = u.id 
-                 WHERE b.title LIKE :term 
-                 OR b.author LIKE :term 
-                 OR b.description LIKE :term 
-                 OR b.isbn LIKE :term 
+                 WHERE b.title LIKE ? 
+                 OR b.author LIKE ? 
+                 OR b.description LIKE ? 
+                 OR b.isbn LIKE ? 
                  ORDER BY b.created_at DESC";
                  
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute([':term' => $term]);
+        $stmt->bindValue(1, $term, PDO::PARAM_STR);
+        $stmt->bindValue(2, $term, PDO::PARAM_STR);
+        $stmt->bindValue(3, $term, PDO::PARAM_STR);
+        $stmt->bindValue(4, $term, PDO::PARAM_STR);
+        $stmt->execute();
         
         return $stmt->fetchAll();
     }

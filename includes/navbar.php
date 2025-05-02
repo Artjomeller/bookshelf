@@ -13,7 +13,6 @@
                 </li>
                 
                 <?php if (is_logged_in()): ?>
-                <!-- Navigatsiooni elemendid sisseloginud kasutajatele -->
                 <li class="nav-item">
                     <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'books.php') ? 'active' : ''; ?>" href="/bookshelf/books.php">Raamatud</a>
                 </li>
@@ -30,6 +29,17 @@
                 <?php endif; ?>
                 <?php endif; ?>
             </ul>
+            
+            <?php if (is_logged_in()): ?>
+            <form class="d-flex mx-2 my-2 my-lg-0" action="/bookshelf/search.php" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Otsi raamatuid..." aria-label="Otsi">
+                    <button class="btn btn-outline-light" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            <?php endif; ?>
             
             <ul class="navbar-nav">
                 <?php if (is_logged_in()): ?>
