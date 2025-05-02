@@ -1,0 +1,66 @@
+-- Drop tables if they exist
+DROP TABLE IF EXISTS book_loans;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS users;
+
+-- Create users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create books table
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    description TEXT,
+    publication_year INT,
+    isbn VARCHAR(20),
+    available BOOLEAN DEFAULT TRUE,
+    added_by INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (added_by) REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Create book_loans table for tracking loans
+CREATE TABLE book_loans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT NOT NULL,
+    user_id INT NOT NULL,
+    borrowed_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    due_date DATETIME,
+    returned_date DATETIME NULL,
+    status ENUM('borrowed', 'returned', 'overdue') DEFAULT 'borrowed',
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Insert admin user (password: Parool11)
+INSERT INTO users (username, email, password, full_name) VALUES
+('admin', 'admin@example.com', '$2y$10$Xv1ELJ48VpYGD9DjoAzO1ODMxaEGhL8uQEYK73HdHcGd/NvQJsEJ2', 'Administraator');
+
+-- Insert regular user (password: Parool12)
+INSERT INTO users (username, email, password, full_name) VALUES
+('Kasutaja', 'kasutaja@example.com', '$2y$10$Xv75Bw7FwJaOqcSvCb13X.rCwH9xrPWUomwiNPkCYWIKaL92EjEiC', 'Tavaline Kasutaja');
+
+-- Insert sample books in Estonian
+INSERT INTO books (title, author, description, publication_year, isbn, available, added_by) VALUES
+('Tõde ja õigus I', 'A. H. Tammsaare', 'Eesti kirjanduse klassikaline romaan Andrese ja Pearu vahelisest keerulisest suhtest', 1926, '9789985317617', TRUE, 1),
+('Rehepapp', 'Andrus Kivirähk', 'Humoorikas romaan eesti rahvapärimusest ja rehepapist, kes varastab mõisa varandust', 2000, '9789985317624', TRUE, 1),
+('Kevade', 'Oskar Luts', 'Romaan Tootsi, Kiire, Arno ja teiste koolipõlvest', 1912, '9789985317631', TRUE, 1),
+('Mees, kes teadis ussisõnu', 'Andrus Kivirähk', 'Romaan viimasest metsaelanikust ja muistsest ussisõnade keelest', 2007, '9789985317648', FALSE, 1),
+('Kalevipoeg', 'Friedrich Reinhold Kreutzwald', 'Eesti rahvuseepos Kalevipojast', 1857, '9789985317655', TRUE, 1);
+
+-- Insert sample loan (Kasutaja has borrowed one book)
+INSERT INTO book_loans (book_id, user_id, due_date, status) VALUES
+(4, 2, DATE_ADD(NOW(), INTERVAL 14 DAY), 'borrowed');
+
+-- Update book availability based on loans
+UPDATE books SET available = FALSE WHERE id = 4;

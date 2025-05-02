@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to BookShelf, a web-based library management system designed to help manage book collections and borrowing. This application allows users to browse available books, borrow them, and return them. Administrators can add, edit, and delete books from the collection.
+Welcome to BookShelf, a web-based library management system designed to help manage book collections and borrowing. This application allows users to browse available books, borrow them, and return them. Administrators can add, edit, and delete books from the collection as well as manage users.
 
 This user manual provides detailed information on how to use the BookShelf application, including instructions for both regular users and administrators.
 
@@ -24,6 +24,7 @@ This user manual provides detailed information on how to use the BookShelf appli
    - [Adding Books](#adding-books)
    - [Editing Books](#editing-books)
    - [Deleting Books](#deleting-books)
+   - [User Management](#user-management)
 5. [Troubleshooting](#troubleshooting)
 6. [Contact Support](#contact-support)
 
@@ -45,7 +46,7 @@ To use BookShelf, you need to create an account:
    - Username (must be unique)
    - Email address (must be unique)
    - Full name (optional)
-   - Password (minimum 8 characters)
+   - Password (minimum 8 characters, must include uppercase letters, lowercase letters, and numbers)
 3. Confirm your password
 4. Click the "Register" button
 5. Upon successful registration, you will be automatically logged in and redirected to your dashboard
@@ -141,13 +142,13 @@ To view and update your profile:
 
 To change your password:
 1. Enter your current password
-2. Enter your new password (minimum 8 characters)
+2. Enter your new password (minimum 8 characters, must include uppercase letters, lowercase letters, and numbers)
 3. Confirm your new password
 4. Click the "Change Password" button
 
 ## Administrator Features
 
-Administrator accounts have additional privileges to manage the book collection.
+Administrator accounts have additional privileges to manage the book collection and users.
 
 ### Adding Books
 
@@ -183,6 +184,23 @@ To delete a book from the collection (administrators only):
 4. The book will be permanently removed from the collection
 
 Note: Books that are currently borrowed cannot be deleted until they are returned.
+
+### User Management
+
+To manage registered users (administrators only):
+
+1. Click on "Users" in the navigation menu
+2. The system will display all registered users in a table format
+3. You can view details of each user including:
+   - Username
+   - Email
+   - Full name
+   - Role (administrator or regular user)
+   - Registration date
+4. To delete a user, click the "Delete" button next to the respective user
+5. Confirm the deletion in the confirmation dialog
+
+Note: The primary administrator cannot be deleted, and administrators cannot delete themselves.
 
 ## Troubleshooting
 

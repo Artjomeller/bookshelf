@@ -52,7 +52,7 @@ A web-based library management system that allows users to browse books, borrow 
 2. **Create the database**
    - Open phpMyAdmin (`http://localhost/phpmyadmin`)
    - Create a new database named `bookshelf_db`
-   - Import the `database.sql` file from the project
+   - Import the `bookshelf_db.txt` file from the project
 
 3. **Configure database connection**
    - Open `config/database.php`
@@ -77,28 +77,11 @@ Use these credentials to test the application:
 
 **Admin User**
 - Username: `admin`
-- Password: `password123`
+- Password: `Parool11`
 
 **Regular User**
-- Username: `user1`
-- Password: `password123`
-
-## 📷 Screenshots
-
-<details>
-<summary>Home Page</summary>
-<p>Shows the main landing page with featured books and login options.</p>
-</details>
-
-<details>
-<summary>Book Catalog</summary>
-<p>Displays all available books in a grid with status indicators.</p>
-</details>
-
-<details>
-<summary>User Dashboard</summary>
-<p>Shows borrowed books and user information in a clean, organized layout.</p>
-</details>
+- Username: `Kasutaja`
+- Password: `Parool12`
 
 ## 🛠️ Technologies Used
 
@@ -119,21 +102,6 @@ Use these credentials to test the application:
   - XSS protection
   - CSRF protection
   - Session security
-
-## 📁 Project Structure
-
-```
-bookshelf/
-├── assets/              # Static assets
-│   ├── css/             # CSS files
-│   └── js/              # JavaScript files
-├── config/              # Configuration files
-├── includes/            # Reusable components
-├── models/              # Data models
-├── docs/                # Documentation
-├── index.php            # Entry point
-└── database.sql         # Database schema
-```
 
 ## 📋 Future Enhancements
 
