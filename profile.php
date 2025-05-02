@@ -103,13 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     <p class="text-muted">
                         <?php echo !empty($user['full_name']) ? htmlspecialchars($user['full_name']) : 'Nimi puudub'; ?>
                     </p>
-                    <p class="text-muted">
-                        <i class="fas fa-envelope me-2 d-inline-block"></i>
-                        <span class="d-inline-block"><?php echo htmlspecialchars($user['email']); ?></span>
-                    </p>
-                    <p class="text-muted">
-                        <i class="fas fa-calendar me-2"></i>Liitunud: <?php echo date('d.m.Y', strtotime($user['created_at'])); ?>
-                    </p>
+                    <div class="text-muted mb-2">
+                        <i class="fas fa-envelope align-middle me-2"></i><span class="align-middle"><?php echo htmlspecialchars($user['email']); ?></span>
+                    </div>
+                    <div class="text-muted">
+                        <i class="fas fa-calendar align-middle me-2"></i><span class="align-middle">Liitunud: <?php echo date('d.m.Y', strtotime($user['created_at'])); ?></span>
+                    </div>
                 </div>
             </div>
             

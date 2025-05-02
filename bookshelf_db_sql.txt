@@ -44,11 +44,11 @@ CREATE TABLE book_loans (
 
 -- Insert admin user (password: Parool11)
 INSERT INTO users (username, email, password, full_name) VALUES
-('admin', 'admin@example.com', '$2y$10$Xv1ELJ48VpYGD9DjoAzO1ODMxaEGhL8uQEYK73HdHcGd/NvQJsEJ2', 'Administraator');
+('admin', 'admin@exmp.com', '$2y$10$Xv1ELJ48VpYGD9DjoAzO1ODMxaEGhL8uQEYK73HdHcGd/NvQJsEJ2', 'Administraator');
 
 -- Insert regular user (password: Parool12)
 INSERT INTO users (username, email, password, full_name) VALUES
-('Kasutaja', 'kasutaja@example.com', '$2y$10$Xv75Bw7FwJaOqcSvCb13X.rCwH9xrPWUomwiNPkCYWIKaL92EjEiC', 'Tavaline Kasutaja');
+('Kasutaja', 'kasutaja@exmp.com', '$2y$10$Xv75Bw7FwJaOqcSvCb13X.rCwH9xrPWUomwiNPkCYWIKaL92EjEiC', 'Tavaline Kasutaja');
 
 -- Insert sample books in Estonian
 INSERT INTO books (title, author, description, publication_year, isbn, available, added_by) VALUES
